@@ -4,9 +4,11 @@ import java.util.Scanner;
 
 public class WeatherSystem {
 
+	// reading user input
 	private static boolean menuLoop = true;
 	private static Scanner userInput = new Scanner(System.in);
 	
+	// looping main menu until user quits
 	public static void main(String[] args) {
 		while (menuLoop) {
 			switch(displayMainMenu()) {
@@ -31,6 +33,7 @@ public class WeatherSystem {
 	public static String displayMainMenu() {
 		String choice="";
 		
+		// asking for user input
 		System.out.println("--Weather observation and forecasting system--");
 		System.out.println("Pick:");
 		System.out.println("1. Location search");
@@ -40,7 +43,7 @@ public class WeatherSystem {
 		System.out.print("> ");
 		choice = userInput.nextLine();
 		
-		return choice;
+		return choice.toUpperCase();
 	}
 
 }
