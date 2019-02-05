@@ -1,0 +1,5 @@
+Liverpool 20 10 N Cloudy
+London 15 11 S Showers
+Hull 21 9 E Sunny
+Glasgow 10 15 W Stormy
+Cornwall 23 16 SE Sunny

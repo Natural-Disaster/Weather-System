@@ -1,18 +1,31 @@
 
 package weather;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import handlers.fileHandler;
 
 public class WeatherSystem {
 
 	private static boolean menuLoop = true;
 	private static Scanner userInput = new Scanner(System.in);
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		while (menuLoop) {
 			switch(displayMainMenu()) {
 			case "1":
 			System.out.println("Location search here");
+			fileHandler handler = new fileHandler(new File("M:\\git\\Weather-System\\Weather System\\src\\data"));
+			//ArrayList<String[]> d = handler.readFile(new File("M:\\git\\Weather-System\\Weather System\\src\\data\\060219.txt"));
+			handler.loadData();
+			//for (String[] string : d) {
+			//	for (int i = 0; i < string.length; i++) {
+			//		System.out.println(string[i]);
+			//	}
+			//}
 			break;
 			case "2":
 				System.out.println("Daily weather report");
