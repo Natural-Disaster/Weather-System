@@ -25,7 +25,7 @@ public class WeatherSystem {
 				menuLoop = false;
 				break;
 				default:
-					System.out.println("Invalid choice entered, please try again");
+					System.out.println("Invalid choice entered, please try again.");
 			}
 		}
 	}
