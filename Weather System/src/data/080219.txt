@@ -1,0 +1,5 @@
+Liverpool 16 11 NE Sunny
+London 16 13 SE Cloudy
+Hull 13 10 SE Showers
+Glasgow 18 12 SW Clear
+Cornwall 26 11 SE Sunny
