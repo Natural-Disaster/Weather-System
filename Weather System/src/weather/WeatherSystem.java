@@ -15,6 +15,9 @@ public class WeatherSystem {
 	
 	public static void main(String[] args) throws FileNotFoundException {
 		while (menuLoop) {
+
+			///abbie smells
+			
 			switch(displayMainMenu()) {
 			case "1":
 			System.out.println("Location search here");
