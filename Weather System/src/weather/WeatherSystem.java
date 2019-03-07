@@ -1,31 +1,20 @@
 
 package weather;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
-
-import handlers.fileHandler;
 
 public class WeatherSystem {
 
+	// reading user input
 	private static boolean menuLoop = true;
 	private static Scanner userInput = new Scanner(System.in);
 	
-	public static void main(String[] args) throws FileNotFoundException {
+	// looping main menu until user quits
+	public static void main(String[] args) {
 		while (menuLoop) {
 			switch(displayMainMenu()) {
 			case "1":
 			System.out.println("Location search here");
-			fileHandler handler = new fileHandler(new File("M:\\git\\Weather-System\\Weather System\\src\\data"));
-			//ArrayList<String[]> d = handler.readFile(new File("M:\\git\\Weather-System\\Weather System\\src\\data\\060219.txt"));
-			handler.loadData();
-			//for (String[] string : d) {
-			//	for (int i = 0; i < string.length; i++) {
-			//		System.out.println(string[i]);
-			//	}
-			//}
 			break;
 			case "2":
 				System.out.println("Daily weather report");
@@ -37,7 +26,7 @@ public class WeatherSystem {
 				menuLoop = false;
 				break;
 				default:
-					System.out.println("Invalid choice entered, please try again");
+					System.out.println("Invalid choice entered, please try again.");
 			}
 		}
 	}
@@ -45,6 +34,7 @@ public class WeatherSystem {
 	public static String displayMainMenu() {
 		String choice="";
 		
+		// asking for user input
 		System.out.println("--Weather observation and forecasting system--");
 		System.out.println("Pick:");
 		System.out.println("1. Location search");
@@ -54,7 +44,7 @@ public class WeatherSystem {
 		System.out.print("> ");
 		choice = userInput.nextLine();
 		
-		return choice;
+		return choice.toUpperCase();
 	}
 
 }
