@@ -5,12 +5,12 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class fileHandler {
+public class FileHandler {
 	
 	private File sourceFolder;
 	private ArrayList<ArrayList> allData = new ArrayList<>();
 
-	public fileHandler(File source) {
+	public FileHandler(File source) {
 		this.sourceFolder = source;
 	}
 	
