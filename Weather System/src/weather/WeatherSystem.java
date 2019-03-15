@@ -2,11 +2,14 @@ package weather;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import handlers.DownloadHandler;
 import handlers.FileHandler;
+import handlers.XMLHandler;
 
 public class WeatherSystem {
 
@@ -19,81 +22,13 @@ public class WeatherSystem {
 		while (menuLoop) {
 			switch (displayMainMenu()) {
 			case "1":
-				System.out.println("Location search here");
+				locationSearch();
 				break;
 			case "2":
-				FileHandler handler = new FileHandler(new File("src\\data"));
-				System.out.println("Select a date:");
-				handler.loadData();
-				String date = "";
-				System.out.print("> ");
-				date = userInput.nextLine(); {
-					
-				if (date.equals("060219")) {
-					ArrayList<String[]> d = handler
-							.readFile(new File("src\\data\\060219.txt"));
-					for (String[] string : d) {
-						for (int i = 0; i < string.length; i++) {
-							System.out.println(string[i]);
-						}
-					}
-				}
-				///////////////////////////////////////////////////////////
-				else if (date.equals("070219")) {
-					ArrayList<String[]> d = handler
-							.readFile(new File("src\\data\\070219.txt"));
-					for (String[] string1 : d) {
-						for (int i = 0; i < string1.length; i++) {
-							System.out.println(string1[i]);
-						}
-					}
-				}
-				else if (date.equals("080219")) {
-					ArrayList<String[]> d = handler
-							.readFile(new File("src\\data\\080219.txt"));
-					for (String[] string2 : d) {
-						for (int i = 0; i < string2.length; i++) {
-							System.out.println(string2[i]);
-						}
-					}
-				}
-				else if (date.equals("090219")) {
-					ArrayList<String[]> d = handler
-							.readFile(new File("src\\data\\090219.txt"));
-					for (String[] string3 : d) {
-						for (int i = 0; i < string3.length; i++) {
-							System.out.println(string3[i]);
-						
-						}
-						}
-				}
-				else if (date.equals("100219")) {
-					ArrayList<String[]> d = handler
-							.readFile(new File("src\\data\\100219.txt"));
-					for (String[] string3 : d) {
-						for (int i = 0; i < string3.length; i++) {
-							System.out.println(string3[i]);
-						}
-					}
-
-				}
-				else if (date.equals("110219")) {
-					ArrayList<String[]> d = handler
-							.readFile(new File("src\\data\\110219.txt"));
-					for (String[] string3 : d) {
-						for (int i = 0; i < string3.length; i++) {
-							System.out.println(string3[i]);
-						}
-					}
-				}
-
-				else {
-					System.out.println("Invalid Option");
-				}
+				dailyReport();
 				break;
-			}
 			case "3":
-				System.out.println("Weather overview");
+				weatherOverview();
 				break;
 			case "Q":
 				menuLoop = false;
@@ -113,10 +48,10 @@ public class WeatherSystem {
 
 	private static void refreshDownloads() {
 		System.out.println("Downloads Started");
-		String[] placeID = {"310012","310013","352287","310123","352409","354301"};
+		String[] placeID = { "310012", "310013", "352287", "310123", "352409", "354301" };
 		for (String id : placeID) {
 			dl.downloadFileURL(id);
-		}	
+		}
 		System.out.println("Downloads Finished");
 	}
 
@@ -135,4 +70,43 @@ public class WeatherSystem {
 		return choice;
 	}
 
+	public static ArrayList<String> nextDates() {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+		LocalDateTime now = LocalDateTime.now();
+		ArrayList<String> dates = new ArrayList<String>();
+		for (int i = 0; i < 5; i++) {
+			String format = dtf.format(now);
+			dates.add(format);
+			now = now.plusDays(1);
+		}
+		return dates;
+	}
+
+	public static void locationSearch() {
+		System.out.println("Location search here");
+	}
+
+	public static void dailyReport() {
+		FileHandler handler = new FileHandler(new File("src\\data"));
+		System.out.println("Select a date:");
+		// handler.loadData();
+		ArrayList<String> dates = nextDates();
+		for (String date : dates) {
+			System.out.println(date);
+		}
+		String date = "";
+		System.out.print("> ");
+		date = userInput.nextLine();
+		
+		if (dates.contains(date)) {
+			XMLHandler xmlHandler = new XMLHandler();
+			xmlHandler.unmarshalXML(new File("src/data/test.xml"));
+		} else {
+			System.out.println("Invalid Date entered");
+		}
+	}
+
+	public static void weatherOverview() {
+		System.out.println("Weather overview here");
+	}
 }
