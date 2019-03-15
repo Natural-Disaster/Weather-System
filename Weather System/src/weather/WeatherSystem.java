@@ -2,13 +2,17 @@ package weather;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import handlers.DownloadHandler;
-import handlers.FileHandler;
 import handlers.XMLHandler;
 
 public class WeatherSystem {
@@ -87,7 +91,6 @@ public class WeatherSystem {
 	}
 
 	public static void dailyReport() {
-		FileHandler handler = new FileHandler(new File("src\\data"));
 		System.out.println("Select a date:");
 		// handler.loadData();
 		ArrayList<String> dates = nextDates();
@@ -99,8 +102,17 @@ public class WeatherSystem {
 		date = userInput.nextLine();
 		
 		if (dates.contains(date)) {
-			XMLHandler xmlHandler = new XMLHandler();
-			xmlHandler.unmarshalXML(new File("src/data/test.xml"));
+			File[] files = new File("src/data").listFiles();
+			for (File file : files) {
+				XMLHandler xmlHandler = new XMLHandler(file);
+				try {
+					xmlHandler.dailySearch(date);
+				} catch (ParserConfigurationException | SAXException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
 		} else {
 			System.out.println("Invalid Date entered");
 		}
