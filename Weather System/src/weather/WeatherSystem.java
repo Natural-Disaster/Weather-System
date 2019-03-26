@@ -21,18 +21,18 @@ public class WeatherSystem {
 	private static Scanner userInput = new Scanner(System.in);
 	private static DownloadHandler dl = new DownloadHandler();
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException {
 		initialise();
 		while (menuLoop) {
 			switch (displayMainMenu()) {
 			case "1":
-				locationSearch();
+				locationSearch(); // NOT STARTED
 				break;
 			case "2":
-				dailyReport();
+				dailyReport(); // WIP
 				break;
 			case "3":
-				weatherOverview();
+				weatherOverview(); // NOT STARTED
 				break;
 			case "Q":
 				menuLoop = false;
@@ -64,9 +64,9 @@ public class WeatherSystem {
 
 		System.out.println("--Weather observation and forecasting system--");
 		System.out.println("Pick:");
-		System.out.println("1. Location search");
-		System.out.println("2. Daily weather report");
-		System.out.println("3. Weather overview");
+		System.out.println("1. Location search       (    Five day forcast for selected location     )");
+		System.out.println("2. Daily weather report  (The weather for every location for selected day)");
+		System.out.println("3. Weather overview      ()");
 		System.out.println("Q. Quit");
 		System.out.print("> ");
 		choice = userInput.nextLine();
@@ -75,7 +75,7 @@ public class WeatherSystem {
 	}
 
 	public static ArrayList<String> nextDates() {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDateTime now = LocalDateTime.now();
 		ArrayList<String> dates = new ArrayList<String>();
 		for (int i = 0; i < 5; i++) {
@@ -90,7 +90,7 @@ public class WeatherSystem {
 		System.out.println("Location search here");
 	}
 
-	public static void dailyReport() {
+	public static void dailyReport() throws ParserConfigurationException, SAXException, IOException {
 		System.out.println("Select a date:");
 		// handler.loadData();
 		ArrayList<String> dates = nextDates();
@@ -100,22 +100,19 @@ public class WeatherSystem {
 		String date = "";
 		System.out.print("> ");
 		date = userInput.nextLine();
-		
+
 		if (dates.contains(date)) {
 			File[] files = new File("src/data").listFiles();
 			for (File file : files) {
 				XMLHandler xmlHandler = new XMLHandler(file);
-				try {
-					xmlHandler.dailySearch(date);
-				} catch (ParserConfigurationException | SAXException | IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				xmlHandler.dailySearch(date);
 			}
-			
+
 		} else {
 			System.out.println("Invalid Date entered");
 		}
+		System.out.println("Press enter to return to menu");
+		userInput.nextLine();
 	}
 
 	public static void weatherOverview() {
