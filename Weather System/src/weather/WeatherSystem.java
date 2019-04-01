@@ -30,9 +30,10 @@ public class WeatherSystem {
 				break;
 			case "2":
 				dailyReport(); // WIP
-				break;
 			case "3":
-				weatherOverview(); // NOT STARTED
+				planningDay();
+				
+				
 				break;
 			case "Q":
 				menuLoop = false;
@@ -44,6 +45,32 @@ public class WeatherSystem {
 		}
 	}
 
+	private static void planningDay() throws ParserConfigurationException, SAXException, IOException {
+		// TODO Auto-generated method stub	
+		System.out.println("Where Are You Visiting?");
+		String location = "";
+		System.out.print("> ");
+		location = userInput.nextLine();
+
+
+		System.out.println("What to wear-");
+		System.out.println("What to do-");
+		
+		
+		System.out.println("Next best thing-");
+		
+	}
+		
+	
+	//} else {
+		//System.out.println("Invalid location entered");
+	//}
+	//System.out.println("Press enter to return to menu");
+	//userInput.nextLine();
+	//}
+	
+		
+	
 	private static void initialise() {
 		System.out.println("Initialising");
 		refreshDownloads();
@@ -66,7 +93,7 @@ public class WeatherSystem {
 		System.out.println("Pick:");
 		System.out.println("1. Location search       (    Five day forcast for selected location     )");
 		System.out.println("2. Daily weather report  (The weather for every location for selected day)");
-		System.out.println("3. Weather overview      ()");
+		System.out.println("3. Plan My Day!");
 		System.out.println("Q. Quit");
 		System.out.print("> ");
 		choice = userInput.nextLine();
@@ -115,7 +142,5 @@ public class WeatherSystem {
 		userInput.nextLine();
 	}
 
-	public static void weatherOverview() {
-		System.out.println("Weather overview here");
+
 	}
-}
