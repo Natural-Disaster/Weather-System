@@ -114,7 +114,25 @@ public class WeatherSystem {
 	}
 
 	public static void locationSearch() {
-		System.out.println("Location search here");
+		System.out.println("Search Location Here");
+		ArrayList<String> locations = nextLocations();
+		for (String location : locations) {
+			System.out.println(location);
+		}
+		String location = "";
+		System.out.print("> ");
+		location = userInput.nextLine();
+
+	}
+
+	
+	
+	
+	
+	
+	private static ArrayList<String> nextLocations() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public static void dailyReport() throws ParserConfigurationException, SAXException, IOException {
