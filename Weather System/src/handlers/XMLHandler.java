@@ -79,10 +79,16 @@ public class XMLHandler {
 					outputRep(rep);
 				}
 				System.out.println("\n");
-
 			}
-		}
-		
-		
+		}		
 	}
+	
+	public String getName() {
+		NodeList locations = document.getElementsByTagName("Location");
+		Element location = (Element)locations.item(0);
+		String name = location.getAttribute("name");
+		
+		return name;
+	}
+	
 }

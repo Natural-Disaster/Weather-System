@@ -91,8 +91,8 @@ public class WeatherSystem {
 
 		System.out.println("--Weather observation and forecasting system--");
 		System.out.println("Pick:");
-		System.out.println("1. Location search       (    Five day forcast for selected location     )");
-		System.out.println("2. Daily weather report  (The weather for every location for selected day)");
+		System.out.println("1. Location search");
+		System.out.println("2. Daily weather report");
 		System.out.println("3. Plan My Day!");
 		System.out.println("Q. Quit");
 		System.out.print("> ");
@@ -113,28 +113,62 @@ public class WeatherSystem {
 		return dates;
 	}
 
-	public static void locationSearch() {
+	public static void locationSearch() throws ParserConfigurationException, SAXException, IOException {
 		System.out.println("Search Location Here");
-		ArrayList<String> locations = nextLocations();
-		for (String location : locations) {
-			System.out.println(location);
+
+		ArrayList<String> locations = new ArrayList<String>();
+		ArrayList<String> searchedLocations = new ArrayList<String>();
+		
+		File[] files = new File("src/data").listFiles();
+		for (File file : files) {
+			XMLHandler xmlHandler = new XMLHandler(file);
+			xmlHandler = new XMLHandler(file);
+			locations.add(xmlHandler.getName());
 		}
-		String location = "";
+		
+		
 		System.out.print("> ");
-		location = userInput.nextLine();
+		String input = userInput.nextLine().toUpperCase();
+
+		for (int i =0; i < locations.size(); i++) {
+			if (locations.get(i).contains(input)) {
+				searchedLocations.add(locations.get(i));
+			}
+		}
+		if (searchedLocations.size() == 1) {
+			XMLHandler xmlHandler = new XMLHandler(files[locations.indexOf(searchedLocations.get(0))]);
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDateTime now = LocalDateTime.now();
+			String format = dtf.format(now);
+			xmlHandler.dailySearch(format);
+		}else if(searchedLocations.size() > 1) {
+			for (String searched : searchedLocations) {
+				System.out.println(searched);
+			}
+			System.out.println("Locations found, please choose from above");
+			System.out.print("> ");
+			String locationChoice = userInput.nextLine();
+			if (searchedLocations.contains(locationChoice.toUpperCase())) {
+				XMLHandler xmlHandler = new XMLHandler(files[locations.indexOf(searchedLocations.get(0))]);
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+				LocalDateTime now = LocalDateTime.now();
+				String format = dtf.format(now);
+				xmlHandler.dailySearch(format);
+			}else {
+				System.out.println("Sorry no locations are found by that name");
+			}
+			
+			
+		}else {
+			System.out.println("No location data found");
+		}
+		
+		
 
 	}
 
 	
 	
-	
-	
-	
-	private static ArrayList<String> nextLocations() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public static void dailyReport() throws ParserConfigurationException, SAXException, IOException {
 		System.out.println("Select a date:");
 		// handler.loadData();
