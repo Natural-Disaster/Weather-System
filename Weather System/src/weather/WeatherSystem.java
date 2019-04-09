@@ -30,10 +30,10 @@ public class WeatherSystem {
 				break;
 			case "2":
 				dailyReport(); // WIP
+				break;
 			case "3":
 				planningDay();
-				
-				
+						
 				break;
 			case "Q":
 				menuLoop = false;
@@ -46,7 +46,6 @@ public class WeatherSystem {
 	}
 
 	private static void planningDay() throws ParserConfigurationException, SAXException, IOException {
-		// TODO Auto-generated method stub	
 		System.out.println("Where Are You Visiting?");
 		String location = "";
 		System.out.print("> ");
@@ -149,7 +148,13 @@ public class WeatherSystem {
 			System.out.print("> ");
 			String locationChoice = userInput.nextLine();
 			if (searchedLocations.contains(locationChoice.toUpperCase())) {
-				XMLHandler xmlHandler = new XMLHandler(files[locations.indexOf(searchedLocations.get(0))]);
+				int indexVal = 0;
+				for (int i = 0; i < searchedLocations.size(); i++) {
+					if(searchedLocations.get(i).equals(locationChoice)){
+						indexVal = i;
+					}
+				}
+				XMLHandler xmlHandler = new XMLHandler(files[locations.indexOf(searchedLocations.get(indexVal))]);
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 				LocalDateTime now = LocalDateTime.now();
 				String format = dtf.format(now);
@@ -167,8 +172,6 @@ public class WeatherSystem {
 
 	}
 
-	
-	
 	public static void dailyReport() throws ParserConfigurationException, SAXException, IOException {
 		System.out.println("Select a date:");
 		// handler.loadData();
